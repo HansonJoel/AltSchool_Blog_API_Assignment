@@ -87,7 +87,7 @@ blogging-api/
 This project is deployed on **Render/Heroku**.
 
 - 🔗 **Live API URL**:
-- 🔗 **GitHub Repo**:
+- 🔗 **GitHub Repo**: https://github.com/HansonJoel/AltSchool_Blog_API_Assignment
 
 ## ✍️ Author
 
