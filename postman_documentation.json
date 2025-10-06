@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "AltSchool Blogging API Documentation",
+    "description": "This is a documnetation for blogging API routes i created for my AltSchool Second Semester Exam Project (Blogging API).\n\nBase URL: https://altschool-blog-api-assignment.onrender.com\n\nUse these endpoints to signup, login, and manage blogs.\n\nMake sure to copy the JWT token after login and add it as `Bearer <token>` under the Authorization header for protected endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/auth/signup",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "auth", "signup"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Joel\",\n  \"last_name\": \"Hanson\",\n  \"email\": \"joelhanson@gmail.com.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "description": "Creates a new user account. Provide `first_name`, `last_name`, `email`, and `password`."
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/auth/login",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "auth", "login"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"joelhanson@gmail.com\",\n  \"password\": \"password123\"\n}"
+        },
+        "description": "Logs in a user and returns a JWT token. Use the token for protected routes."
+      }
+    },
+    {
+      "name": "Get All Published Blogs",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs?state=published&page=1&limit=20",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs"],
+          "query": [
+            { "key": "state", "value": "published" },
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "20" }
+          ]
+        },
+        "description": "Returns a paginated list of all published blogs. Supports filters by state, search by title/author/tags, and ordering by read_count, reading_time, and timestamp. This is for public access."
+      }
+    },
+    {
+      "name": "Get Single Blog",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs/<BLOG_ID>",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs", "<BLOG_ID>"]
+        },
+        "description": "Returns details of a single blog post by ID and increases the read count by 1."
+      }
+    },
+    {
+      "name": "Create Blog",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer <JWT_TOKEN>" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"My First Blog\",\n  \"description\": \"This is a blog about testing\",\n  \"tags\": [\"test\", \"altschool\"],\n  \"body\": \"This is the body of the blog post.\"\n}"
+        },
+        "description": "Creates a new blog in draft state. Must be authenticated."
+      }
+    },
+    {
+      "name": "Update Blog",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer <JWT_TOKEN>" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs/<BLOG_ID>",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs", "<BLOG_ID>"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Blog Title\",\n  \"description\": \"Updated description\",\n  \"body\": \"Updated blog content.\"\n}"
+        },
+        "description": "Updates a blog by ID. Owner only. Works for both draft and published blogs."
+      }
+    },
+    {
+      "name": "Publish Blog",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer <JWT_TOKEN>" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs/<BLOG_ID>/publish",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs", "<BLOG_ID>", "publish"]
+        },
+        "description": "Updates the state of a blog to 'published'. Owner only."
+      }
+    },
+    {
+      "name": "Delete Blog",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer <JWT_TOKEN>" }],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs/<BLOG_ID>",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs", "<BLOG_ID>"]
+        },
+        "description": "Deletes a blog by ID. Owner only. Works for both draft and published blogs."
+      }
+    },
+    {
+      "name": "Get My Blogs",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer <JWT_TOKEN>" }],
+        "url": {
+          "raw": "https://altschool-blog-api-assignment.onrender.com/v1/blogs/user/me/list",
+          "protocol": "https",
+          "host": ["altschool-blog-api-assignment", "onrender", "com"],
+          "path": ["v1", "blogs", "user", "me", "list"]
+        },
+        "description": "Returns a list of all blogs created by the currently authenticated user.\n\nSteps:\n1. Login with `/v1/auth/login`.\n2. Copy the JWT token.\n3. Paste the token in the `Authorization` header as `Bearer <JWT_TOKEN>`."
+      }
+    }
+  ]
+}
